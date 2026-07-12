@@ -9,15 +9,18 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
   height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +30,7 @@ body {
   font-family: 'Jost', sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 /* ---------- ambient background ---------- */
@@ -266,11 +270,62 @@ body {
   letter-spacing: 0.01em;
 }
 
-@media (max-width: 420px) {
+/* ---------- responsive ---------- */
+
+@media (max-width: 640px) {
+  .scene {
+    gap: 2.1rem;
+    padding: 1.2rem 0 2rem;
+  }
+}
+
+@media (max-width: 480px) {
   .card {
-    padding: 2.1rem 1.4rem;
+    padding: 2rem 1.3rem;
+    border-radius: 22px;
+    min-height: 200px;
+  }
+  .scene__footnote {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 1.7rem 1.1rem;
   }
   .draw-btn {
-    padding: 0.9rem 2rem;
+    padding: 0.9rem 1.8rem;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+  }
+}
+
+/* generous, thumb-friendly hit targets on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .draw-btn {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  .reset-link {
+    padding: 0.6rem 0.8rem;
+    min-height: 44px;
+  }
+  .draw-btn:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(255,255,255,0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars,
+  .aurora,
+  .card__question.is-visible {
+    animation: none !important;
+  }
+  .card__question {
+    opacity: 1;
+    transform: none;
   }
 }
